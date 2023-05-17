@@ -1,0 +1,63 @@
+I-
+  1)
+	1- select * from personnage;
+	2- select * from arme;
+	3- select nom,levelMin from arme;
+	4- select nom,surnom,LEVEL from personnage;
+	5- select nom as pseudo, LEVEL as Niveau from personnage;
+	6- select Type as Types armes du jeu from armes;
+	7- select libelle as TypeArmesDuJeu from typearme;
+  2)
+	1- select count(*) from arme; select count(*) as NombresDarmes from arme;
+	2- select count(*) as NombreDePersonnage from personnage;
+	3- select avg(level) from personnage;
+	4- select sum(baseForce) as PointDeForce, sum(baseAgi) as PointDagilite, sum(baseIntel) as PointsDintelDuJeu from classe;
+	5- select min(levelMin) ,max(levelMin)from arme;
+	6- select nom,sum(baseForce+baseAgi+baseIntel) as NBPointDeCaracteristique from classe where nom='Guerrier' union select nom,sum(baseForce+baseAgi+baseIntel) from classe where nom='Archer' union select nom,sum(baseForce+baseAgi+baseIntel) from classe where nom='Voleur';
+	
+  3)
+	1- select concat(nom,surnom) from personnage;
+	2- select concat(nom,' : ',baseAgi,'-A : ',baseIntel,'-I : ',baseForce,'-F : ') as classe from classe;
+	3- select substring(nom,1,6) from personnage;
+	4- select concat(substring(nom,1,5),'-',substring(description,1,20)) from classe;
+  4)
+	1- select * from arme where levelMin='5'; **le résultat affiche les armes dont dont le niveau est supérieur à 5**
+	2- select * from arme where degat<25;
+	3- select nom,surnom from personnage where level=10;
+	4- select idTypeArme,libelle,estDistance from typearme where estDistance=1;
+	
+  5)
+	1- select * from arme where levelMin>=4 AND levelMin<=8;
+	2- select * from personnage where idPersonnage<=3 and level=10;
+	3- select nom,levelMin from arme where levelMin<4 OR levelMin>8;
+	4- select * from arme where (idArme=1 and idArme=2) and degat>30;
+	5- select * from arme where idArme=1 or idArme=2 or (degat>=30);
+	6- select * from arme where idArme=1 or idArme=2 or (degat<40 and degat>25);
+	7- select * from personnage where level<>8 and level>7 or level<6;
+	8- select count(nom) as 'NB Perso <10' from personnage where level<10;
+
+  6)	
+	1- select nom from personnage where nom like 'l%';
+	2- select nom from personnage where nom like 'l%er';
+	3- select nom from arme where nom like '%bois%';
+	4- select nom from arme where nom like 'a_B%';
+	5- select nom from arme where idArme=1 or idArme=2 or idArme=4 or idArme=5 or idArme=7;
+	6- select * from personnage where (idPersonnage=2 or idPersonnage=3 or idPersonnage=4 or idPersonnage=6) and level=10;
+	7- select * from personnage where surnom IS NOT NULL;
+	8- select * from personnage where surnom IS NULL;
+	9- select * from personnage LIMIT 3;
+	10- select * from personnage LIMIT 2 OFFSET 3;
+II-
+  1)
+	1- select * from personnage inner join classe on personnage.idClasse=classe.idClasse;
+	2- select nom,levelMin,libelle,estDistance from arme inner join typearme on Arme.idTypeArme=typeArme.idTypeArme;
+	
+  2)
+	1- select nom from  personnage inner join classe on personnage.idClasse=classe.idClasse;
+	2- select personnage.nom,classe.nom from  personnage inner join classe on personnage.idClasse=classe.idClasse;
+	3- select personnage.nom, arme.nom ,levelMin,degat from  personnage inner join arme on personnage.idArmeUtilise=arme.idArme;
+	4-  select personnage.nom, arme.nom ,levelMin,degat,libelle,EstDistance from  personnage inner join arme on personnage.idArmeUtilise=arme.idArme inner join typearme on arme.idTypeArme=typearme.idTypeArme;
+  3)
+
+	1-select personnage.nom as 'nom personnage',personnage.level, arme.nom as 'arme' ,arme.levelMin from  personnage inner join dispose on Personnage.idPersonnage=dispose.idPersonnage inner join arme on dispose.idArme=arme.idArme;
+	2-
